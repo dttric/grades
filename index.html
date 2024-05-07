@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <style>
+        bad {
+            color: red;
+        }
+        good {
+            color: green;
+        }
+        notbad {
+            color: yellow;
+        }
+        notsogood {
+            color: greenyellow;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    
+    <!-- СКРИПТЫ -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+    
+    <!-- ДОКУМЕНТ -->
+    <title>dttric/grades</title>
+</head>
+<body>
+    <br><br><br><br>
+    <h1 class="text-center"></h1>
+    <div class="container">
+        <div class="input-group input-group-lg">
+            <input class="form-control text-center" id="gradesinput" placeholder="Введите оценки (≥3)">
+            <button class="btn btn-outline-secondary" type="button" id="calculate">Вычислить</button>
+        </div><br><br>
+        <h3 class="text-center">Скорее всего вам поставят: <span id="result">0</span></h3>
+        <h4 class="text-center" id="realresult"></h4>
+        <div class="form-text text-center">Итоговая оценка зависит от вашего учителя.</div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $("#calculate").click(function(){
+                let grades = $("#gradesinput").val();
+                let gradesArr = grades.split('');
+                let gradesLen = grades.length;
+                console.log("Строка оценок", grades);
+                console.log("Массив оценок", gradesArr);
+                console.log("Длина строки оценок", gradesLen);
+                if(gradesLen < 3) {
+                    $("#result").text("Ошибка");
+                } else {
+                    let result = gradesArr.reduce(function(t,c){
+                        return parseInt(t) + parseInt(c);
+                    }, 0) / gradesLen;
+                    
+                    $("#result").text(result.toFixed(2));
+                    /*
+                    * $("#result").text(Math.round(result));
+                    * $("#realresult").text("Реальная оценка: " + result.toFixed(2));
+                    */
+                }
+            });
+        });
+    </script>
+</body>
+</html>
