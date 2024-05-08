@@ -52,20 +52,27 @@
                 if(gradesLen < 3) {
                     $("#result").text("Ошибка");
                 } else {
-                    let result = gradesArr.reduce(function(t,c){
-                        return parseInt(t) + parseInt(c);
-                    }, 0) / gradesLen;
+                    // вычисляю оценку по формуле
+                    let result = gradesArr.reduce(function(t,c) {return parseInt(t) + parseInt(c); }, 0) / gradesLen;
                     
-                    let realresult = 0;
+                    // сокращаю оценку
+                    result = result.toFixed(2)
+
+                    // вычисляем целое число от оценки
+                    /*
+                    * ВАЖНО ЗАМЕТИТЬ ЧТО round() НЕ РАБОТАЕТ НОРМАЛЬНО
+                    * ПОРЯДОК в if ВАЖЕН
+                    */
+                    let realresult;
 
                     if(result >= 4.60) {realresult = 5; $("#result").addClass("good");}
                     else if(result >= 3.60) {realresult = 4; $("#result").addClass("notsogood");}
                     else if(result >= 2.60) {realresult = 3; $("#result").addClass("notbad");}
                     else {realresult = 2; $("#result").addClass("bad");}
-                    // тут был switch-case
 
+                    // вывод оценки
                     $("#result").text(realresult);
-                    $("#realresult").text("Реальная оценка: " + result.toFixed(2));
+                    $("#realresult").text("Реальная оценка: " + result);
                 }
             });
         });
