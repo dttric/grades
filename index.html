@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS -->
     <style>
-        bad {
+        .bad {
             color: red;
         }
-        good {
+        .good {
             color: green;
         }
-        notbad {
+        .notbad {
             color: yellow;
         }
-        notsogood {
+        .notsogood {
             color: greenyellow;
         }
     </style>
@@ -56,11 +56,17 @@
                         return parseInt(t) + parseInt(c);
                     }, 0) / gradesLen;
                     
-                    $("#result").text(result.toFixed(2));
-                    /*
-                    * $("#result").text(Math.round(result));
-                    * $("#realresult").text("Реальная оценка: " + result.toFixed(2));
-                    */
+                    let realresult;
+
+                    switch(result){
+                        case result>2.60: realresult = 3; $("#result").addClass("notbad"); break;
+                        case result>3.60: realresult = 4; $("#result").addClass("notsogood"); break;
+                        case result>4.60: realresult = 5; $("#result").addClass("good"); break;
+                        default: realresult = 2; $("#result").addClass("bad");
+                    }
+
+                    $("#result").text(realresult);
+                    $("#realresult").text("Реальная оценка: " + result.toFixed(2));
                 }
             });
         });
